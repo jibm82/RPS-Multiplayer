@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RPS Multiplayer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container pt-5">
+        <div class="row justify-content-md-center">
+            <div class="col-md-8">
+                <h1>Chat</h1>
+                <div id="messages">
+                </div>
+                <form id="messageForm">
+                    <div class="input-group mb-3">
+                        <input id="message" type="text" class="form-control" placeholder="Write something...">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button">Send</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyBML2LnFFgyIOe3XXmTWD2pY8cs-wNA9dE",
+            authDomain: "fir-demo-eda69.firebaseapp.com",
+            databaseURL: "https://fir-demo-eda69.firebaseio.com",
+            projectId: "fir-demo-eda69",
+            storageBucket: "fir-demo-eda69.appspot.com",
+            messagingSenderId: "943450092840"
+        };
+
+        firebase.initializeApp(config);
+
+        var database = firebase.database();
+
+        database.ref().on("child_added", function (childSnapshot) {
+
+            // Log everything that's coming out of snapshot
+            console.log(childSnapshot.val().message);
+
+            // full list of items to the well
+            var message = $("<p>").text(childSnapshot.val().message);
+            $("#messages").append(message);
+
+            // Handle the errors
+        }, function (errorObject) {
+            console.log("Errors handled: " + errorObject.code);
+        });
+
+        $("#messageForm").submit(function (e) {
+            e.preventDefault();
+
+            database.ref().push({
+                message: $("#message").val().trim()
+            });
+
+            $("#message").val("");
+        });
+    </script>
+</body>
+
+</html>
