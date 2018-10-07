@@ -37,6 +37,7 @@ var app = {
 
   new: function () {
     this.bindActionClick();
+    this.bindJoinClick();
     this.bindMessageFormSubmit();
     this.bindSignInFormSubmit();
 
@@ -59,6 +60,14 @@ var app = {
           $("#action-modal").modal("hide");
         }
       });
+    })
+  },
+
+  bindJoinClick: function () {
+    $("#join").click(function (e) {
+      e.preventDefault();
+      app.joinGame();
+      $("#join-modal").modal("hide");
     })
   },
 
@@ -122,7 +131,8 @@ var app = {
 
       function (error, committed) {
         if (!committed) {
-          console.log('Game is full');
+          $("#error").text("Sorry the game is full, but you can still chat.");
+          $("#error-modal").modal("show");
         }
       }
     );
@@ -141,6 +151,7 @@ var app = {
   listenForConnectionsChange: function () {
     this.connectionsRef.on("value", function (connectionsSnapshot) {
       app.currentUsers = connectionsSnapshot.numChildren();
+      $("#users-count").text(app.currentUsers);
     })
   },
 
@@ -189,7 +200,7 @@ var app = {
         if (app.currentUser.role === "player") {
           $("#action-modal").modal("hide");
         } else {
-
+          $("#join-modal").modal("show");
         }
       }
 
