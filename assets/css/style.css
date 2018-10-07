@@ -1,0 +1,80 @@
+@font-face {
+    font-family: 'Western';
+    src: url('../fonts/western.woff') format('woff2'),
+         url('../fonts/western.woff2') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@import url(https://fonts.googleapis.com/css?family=Ewert);
+
+html,
+body {
+  background: url(../images/town.jpg);
+  background-size: cover;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: Ewert;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: #f5f5f5;
+}
+
+h1,
+h3,
+.card .name{
+  font-family: Western;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+.card .name{
+  font-size: 1.5em;
+}
+
+.btn,
+.form-control {
+  border-radius: 0px;
+}
+
+#login {
+  max-width: 330px;
+  margin: auto;
+  padding: 15px;
+  width: 100%;
+}
+
+#game {
+  display: none;
+}
+
+.signed-in #login {
+  display: none;
+}
+
+.signed-in #game {
+  display: -ms-flexbox !important;
+  display: flex !important;
+}
+
+#messages {
+  background: #fff;
+  height: 120px;
+  overflow-y: auto;
+}
+
+.message {
+  margin-bottom: 0px;
+  padding: 5px;
+  text-align: left;
+}
+
+.card-header.name {
+  background: wheat;
+}

@@ -8,38 +8,107 @@
     <title>RPS Multiplayer</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 
-<body>
-    <main class="container pt-5">
-        <section id="name-form-container">
-            <form id="name-form">
+<body class="text-center">
+    <div class="d-flex w-100 h-100 mx-auto flex-column">
+        <section id="login" class="card text-center">
+            <form id="name-form" class="card-body">
+                <h1 class="mb-3">Rock Paper Scissors</h1>
+                <h4>Enter your name</h4>
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                    <input type="text" class="form-control" id="name">
                 </div>
-                <button type="submit" class="btn btn-primary">Join</button>
+                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
             </form>
         </section>
-        <div class="row justify-content-md-center">
-            <div class="col-md-8">
-                <h1>Chat</h1>
-                <div id="messages"></div>
-                <form id="messageForm" action="/" autocomplete="off">
-                    <div class="input-group mb-3">
-                        <input id="message" type="text" autocomplete="off" class="form-control" placeholder="Write something...">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="submit">Send</button>
+        <section id="game" class="w-100 h-100 p-1 mx-auto flex-column">
+            <header class="masthead mb-auto">
+                <div class="inner">
+                    <h3>Rock Paper Scissors</h3>
+                </div>
+            </header>
+
+            <main role="main" class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <div id="playerOne" class="card">
+                                    <div class="card-header name">
+                                        Waiting for player
+                                    </div>
+                                    <div class="card-body">
+                                        <h4 class="status"></h4>
+                                    </div>
+                                    <div class="card-footer text-muted">
+                                        Wins: <span class="wins">0</span>
+                                        Ties: <span class="ties">0</span>
+                                        Loses: <span class="loses">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <h1>V.S.</h1>
+                                <h3 id="game-status"></h3>
+                            </div>
+                            <div class="col-md-4">
+                                <div id="playerTwo" class="card">
+                                    <div class="card-header name">
+                                        Waiting for player
+                                    </div>
+                                    <div class="card-body">
+                                        <h4 class="status"></h4>
+                                    </div>
+                                    <div class="card-footer text-muted">
+                                        Wins: <span class="wins">0</span>
+                                        Ties: <span class="ties">0</span>
+                                        Loses: <span class="loses">0</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </form>
+                </div>
+            </main>
+
+            <footer class="mastfoot mt-auto">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div id="messages"></div>
+                            <form id="message-form" action="/" autocomplete="off">
+                                <div class="input-group mb-3">
+                                    <input id="message" type="text" autocomplete="off" class="form-control" placeholder="Write something...">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-info" type="submit">Send</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+            <div class="modal fade" id="action-modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Make your move</h5>
+                        </div>
+                        <div class="modal-body">
+                            <button class="btn action btn-block" data-action="rock">Rock</button>
+                            <button class="btn action btn-block" data-action="paper">Paper</button>
+                            <button class="btn action btn-block" data-action="scissors">Scissors</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <button id="test">Test</button>
-        <button id="update">Update</button>
-        <p id="status"></p>
-        <p id="status-players"></p>
-    </main>
+            <p id="status" class="d-none"></p>
+            <p id="status-players" class="d-none"></p>
+        </section>
+    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
@@ -47,169 +116,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase.js"></script>
-    <script>
-        var config = {
-            apiKey: "AIzaSyBML2LnFFgyIOe3XXmTWD2pY8cs-wNA9dE",
-            authDomain: "fir-demo-eda69.firebaseapp.com",
-            databaseURL: "https://fir-demo-eda69.firebaseio.com",
-            projectId: "fir-demo-eda69",
-            storageBucket: "fir-demo-eda69.appspot.com",
-            messagingSenderId: "943450092840"
-        };
-
-        firebase.initializeApp(config);
-
-        var database = firebase.database();
-
-        var connectedRef = database.ref(".info/connected");
-        var connectionsRef = database.ref("/connections");
-        var messagesRef = database.ref("/messages");
-        var playersRef = database.ref("/players");
-
-        var app = {
-            connectionRef: undefined,
-            currentPlayers: 0,
-            currentUsers: 0,
-            currentUser: {
-                id: undefined,
-                name: undefined,
-                role: "guest",
-            }
-        }
-
-        connectedRef.on("value", function (snapshot) {
-            if (snapshot.val()) {
-                app.connectionRef = connectionsRef.push({ role: app.currentUser.role });
-
-                app.connectionRef.on("value", function (connectionSnapshot) {
-                    if (connectionSnapshot.val()) {
-                        app.currentUser.id = connectionSnapshot.key;
-                        app.currentUser.name = connectionSnapshot.val().name;
-                        app.currentUser.role = connectionSnapshot.val().role;
-                    }
-                });
-
-                app.connectionRef.onDisconnect().remove();
-            }
-        });
-
-        connectionsRef.on("value", function (snapshot) {
-            app.currentUsers = snapshot.numChildren();
-            $("#status").text("Users: " + snapshot.numChildren());
-
-            if (app.currentPlayers === 2) {
-                if (app.currentUser.role === "player") {
-                    // TODO - Ask player for selection
-                    console.log("Ask player for selection");
-                } else {
-                    // TODO - Notify game is about to start
-                    console.log("Game is about to start");
-                }
-            }
-        });
-
-        connectionsRef.on("child_removed", function (childSnapshot) {
-            playersRef.child(childSnapshot.key).off("value");
-            playersRef.child(childSnapshot.key).remove();
-        });
-
-        playersRef.on("value", function (snapshot) {
-            app.currentPlayers = snapshot.numChildren();
-            $("#status-players").text("Players: " + snapshot.numChildren());
-        });
-
-        playersRef.on("child_added", function (newPlayer) {
-            connectionsRef.child(newPlayer.key).once('value', function (snapshot) {
-                // Check if player is still connected
-                if (!snapshot.val()) {
-                    playersRef.child(newPlayer.key).remove();
-                } else {
-                    playersRef.child(newPlayer.key).on("value", function (newPlayerSnapshot) {
-                        if (newPlayerSnapshot)
-                            if (newPlayerSnapshot.val()) {
-                                // TODO - Handle player selection
-                                console.log("Handle player selection");
-                            }
-                    });
-                }
-            });
-        });
-
-        playersRef.on("child_removed", function (oldPlayer) {
-            if (oldPlayer.key === app.currentUser.id) {
-                // TODO - Handle current user disconnection
-                console.log("Handle current user disconnection");
-            } else {
-                // TODO - Notify player seat available
-                console.log("Notify player seat available");
-            }
-        });
-
-        function joinGame(name) {
-            const PLAYER_LIMIT = 2;
-            var currentUserAlreadyInGame = false;
-
-            playersRef.transaction(
-                function (players) {
-                    if (players === null) {
-                        players = {};
-                    }
-
-                    playerIds = Object.keys(players);
-
-                    if (playerIds.includes(app.currentUser.id)) {
-                        currentUserAlreadyInGame = true;
-                        return;
-                    }
-                    if (playerIds.length < PLAYER_LIMIT) {
-                        players[app.currentUser.id] = {
-                            name: name,
-                            selection: ''
-                        };
-                        return players;
-                    }
-                },
-                function (error, committed) {
-                    if (committed || currentUserAlreadyInGame) {
-                        app.connectionRef.update({ role: "player" });
-                    } else {
-                        console.log('Game is full.  Can\'t join. :-(');
-                    }
-                });
-
-            return true;
-        }
-
-        $("#name-form").submit(function (e) {
-            e.preventDefault();
-            let name = $("#name").val().trim();
-            app.connectionRef.update({ name: name });
-            joinGame(name);
-            listenForMessages();
-        });
-
-        function listenForMessages() {
-            messagesRef.limitToLast(1).on("child_added", function (childSnapshot) {
-                var message = $("<p>").text(childSnapshot.val().message);
-                $("#messages").append(message);
-            }, function (errorObject) {
-                console.log("Errors handled: " + errorObject.code);
-            });
-        }
-
-        $("#messageForm").submit(function (e) {
-            e.preventDefault();
-
-            messagesRef.push({
-                user_id: app.currentUser.id,
-                message: $("#message").val().trim(),
-                name: app.currentUser.name
-            });
-
-            $("#message").val("");
-        });
-
-    </script>
+    <script src="assets/javascript/moment.js"></script>
+    <script src="assets/javascript/app.js"></script>
 </body>
 
 </html>
